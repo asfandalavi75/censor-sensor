@@ -8,7 +8,7 @@
     "prepare": "npm run build",
     "build": "webpack --config webpack.config.js",
     "test": "ava-ts src/**/*.spec.ts",
-    "postinstall": "cd ./node_modules/censor-censor&& npm install && npm run build"
+    "postinstall": "cd ./node_modules/censor-censor && npm install && npm run build"
   },
   "repository": {
     "type": "git",
