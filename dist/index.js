@@ -188,6 +188,7 @@ class CensorSensor {
                 return;
             const tier = dict[dictWord];
             if (phrase.indexOf(dictWord) !== -1 && this.enabledTiers[tier]) {
+                foundProfanity.push(dictWord);
                 foundProfanity.push(tier);
             }
         });
