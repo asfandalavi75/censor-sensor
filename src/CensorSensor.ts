@@ -118,7 +118,7 @@ export class CensorSensor {
       
       const tier = dict[dictWord];
 
-      if(this.enabledTiers[tier]){
+      if(phrase.match(dictWord) && this.enabledTiers[tier]){
         foundProfanity.push(dictWord);
         foundProfanity.push(tier);
       }
