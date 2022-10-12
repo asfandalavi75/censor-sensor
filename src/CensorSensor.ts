@@ -110,19 +110,22 @@ export class CensorSensor {
     return this._isProfaneIsh(this.prepareForParsing(phrase), dict);
   }
 
-  private _profaneWords(phrase: string, dict: { [word: string]: CensorTier }): string[] {
+  private _profaneWords(words: string[], dict: { [word: string]: CensorTier }): string[] {
     const foundProfanity = [];
 
-    Object.keys(dict).forEach(dictWord => {
-      if(this.blackList[dictWord]) return;
-      
-      const tier = dict[dictWord];
+    words.forEach(word =>{
+      if(this.blackList[word]) return false;
 
-      if(phrase.includes(dictWord) && this.enabledTiers[tier]){
-        foundProfanity.push(dictWord);
-        foundProfanity.push(tier);
-      }
+      const wordTier = dict[word];
+
+      if(!wordTier) return;
+      if(!this.enabledTiers[wordTier]) return;
+
+      foundProfanity.push(word);
+      foundProfanity.push(wordTier);
+
     });
+
 
     return foundProfanity;
   }
@@ -130,7 +133,7 @@ export class CensorSensor {
   public profaneWords(phrase: string) {
     const dict = this.currentDictionary;
 
-    return this._profaneWords(phrase, dict);
+    return this._profaneWords(this.prepareForParsing(phrase).split(' '), dict);
   }
 
   public setCleanFunction(func: (str: string) => string): void {

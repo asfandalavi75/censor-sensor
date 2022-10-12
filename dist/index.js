@@ -181,22 +181,24 @@ class CensorSensor {
         const dict = this.currentDictionary;
         return this._isProfaneIsh(this.prepareForParsing(phrase), dict);
     }
-    _profaneWords(phrase, dict) {
+    _profaneWords(words, dict) {
         const foundProfanity = [];
-        Object.keys(dict).forEach(dictWord => {
-            if (this.blackList[dictWord])
+        words.forEach(word => {
+            if (this.blackList[word])
+                return false;
+            const wordTier = dict[word];
+            if (!wordTier)
                 return;
-            const tier = dict[dictWord];
-            if (phrase.includes(dictWord) && this.enabledTiers[tier]) {
-                foundProfanity.push(dictWord);
-                foundProfanity.push(tier);
-            }
+            if (!this.enabledTiers[wordTier])
+                return;
+            foundProfanity.push(word);
+            foundProfanity.push(wordTier);
         });
         return foundProfanity;
     }
     profaneWords(phrase) {
         const dict = this.currentDictionary;
-        return this._profaneWords(phrase, dict);
+        return this._profaneWords(this.prepareForParsing(phrase).split(' '), dict);
     }
     setCleanFunction(func) {
         this.customCleanFunction = func;
