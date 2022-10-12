@@ -117,11 +117,12 @@ export class CensorSensor {
       if(this.blackList[dictWord]) return;
       
       const tier = dict[dictWord];
+      if(!tier) return;
+      if(!this.enabledTiers[tier]) return;
+      
+      foundProfanity.push(dictWord);
+      foundProfanity.push(tier);
 
-      if(phrase.match(dictWord) && this.enabledTiers[tier]){
-        foundProfanity.push(dictWord);
-        foundProfanity.push(tier);
-      }
     });
 
     return foundProfanity;
