@@ -28,8 +28,8 @@ export declare class CensorSensor {
     isProfane(phrase: string): boolean;
     private _isProfaneIsh(phrase, dict);
     isProfaneIsh(phrase: string): boolean;
-    private _profaneIshWords(phrase, dict);
-    profaneIshWords(phrase: string): string[];
+    private _profaneWords(phrase, dict);
+    profaneWords(phrase: string): string[];
     setCleanFunction(func: (str: string) => string): void;
     resetCleanFunction(): void;
     cleanProfanity(phrase: string): string;

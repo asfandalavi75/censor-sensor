@@ -181,22 +181,22 @@ class CensorSensor {
         const dict = this.currentDictionary;
         return this._isProfaneIsh(this.prepareForParsing(phrase), dict);
     }
-    _profaneIshWords(phrase, dict) {
+    _profaneWords(phrase, dict) {
         const foundProfanity = [];
         Object.keys(dict).forEach(dictWord => {
             if (this.blackList[dictWord])
                 return;
             const tier = dict[dictWord];
-            if (phrase.indexOf(dictWord) !== -1 && this.enabledTiers[tier]) {
+            if (this.enabledTiers[tier]) {
                 foundProfanity.push(dictWord);
                 foundProfanity.push(tier);
             }
         });
         return foundProfanity;
     }
-    profaneIshWords(phrase) {
+    profaneWords(phrase) {
         const dict = this.currentDictionary;
-        return this._profaneIshWords(phrase, dict);
+        return this._profaneWords(phrase, dict);
     }
     setCleanFunction(func) {
         this.customCleanFunction = func;
@@ -218,7 +218,7 @@ class CensorSensor {
     cleanProfanityIsh(phrase) {
         const cleanFunc = this.cleanFunction;
         const comparePhrase = this.prepareForParsing(phrase);
-        const allProfanity = this.profaneIshWords(comparePhrase);
+        const allProfanity = this.profaneWords(comparePhrase);
         allProfanity.forEach(word => {
             const regex = new RegExp(word, 'gi');
             phrase = phrase.replace(regex, cleanFunc(word));
