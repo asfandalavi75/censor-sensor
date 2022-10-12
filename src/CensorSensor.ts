@@ -120,7 +120,7 @@ export class CensorSensor {
       if(!tier) return;
       if(!this.enabledTiers[tier]) return;
       
-      foundProfanity.push(dictWord);
+      foundProfanity.push(phrase);
       foundProfanity.push(tier);
 
     });

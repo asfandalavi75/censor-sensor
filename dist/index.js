@@ -191,7 +191,7 @@ class CensorSensor {
                 return;
             if (!this.enabledTiers[tier])
                 return;
-            foundProfanity.push(dictWord);
+            foundProfanity.push(phrase);
             foundProfanity.push(tier);
         });
         return foundProfanity;
